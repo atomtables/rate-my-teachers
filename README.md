@@ -48,3 +48,6 @@ You can add a teacher by going to the school_teachers page, and clicking "Add Te
 the form, and click "Save". You can also add a school by going to the schools page, and clicking "Add School".
 Keep in mind, reviews is a list field, that takes in many dictionaries like [{"student", "date", "review", "rating"}, ...]
 
+## What does "write your own review" do?
+That button adds a review to the teacher by appending it to their teacher.comments list, allowing it to be
+displayed to all students.
