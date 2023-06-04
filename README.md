@@ -37,7 +37,7 @@ more personalized experience. If a math teacher switches grades, a student could
 in a voting system, allowing for accurate information to be displayed. 
 
 ## How do I run this?
-First, you need to install Django. You can do this by running `python -m pip install django` in your terminal. Then,
+First, you need to install Django. You can do this by running `python -m pip install -r requirements.txt` in your terminal. Then,
 you need to run `python manage.py runserver` in the directory with the manage.py file. Then, you can go to
 "127.0.0.1:8000" to view the site. You can also go to "<127.0.0.1>:8000/admin"
 to view the admin panel. The default username is "admin1" and the default password is "testuser". You can
