@@ -1,0 +1,116 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+    <br><br><br>
+    <div class="px-4 py-5 my-5 text-center">
+        <img class="d-block mx-auto mb-4" src="/static/favicon.png" alt="" width="100">
+        <h1 class="display-5 fw-bold text-body-emphasis">Welcome to RateMyTeacher</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">
+                Ever gotten your schedules and wondered to yourself, "What
+                are my new teachers like?" With RateMyTeacher, you no longer need to wonder! This
+                app allows you to see what other students have to say about your teachers. Better yet,
+                you can leave your own reviews to help out your fellow students! Learn about your
+                teacher's quirks, teaching style, and more!
+            </p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <form class="d-flex" role="search" id="search-form">
+                    <input id='searchid' class="form-control me-2" type="search" placeholder="Search for your teacher"
+                           aria-label="Search" style="width: 320px;" name="query">
+                    <button class="btn btn-success btn-lg px-4 gap-3" type="submit" onclick="
+                        const search = document.getElementById('searchid').value;
+                        document.location.href='/search/' + search">Search
+                    </button>
+                </form>
+                <script>
+                    document.getElementById('search-form').addEventListener('submit', function (event) {
+                        event.preventDefault();  // Prevent the form from submitting
+
+                        const query = document.querySelector('input[name="query"]').value;
+                        window.location.href = "/search/" + encodeURIComponent(query);
+                    });
+                </script>
+                <button type="button" class="btn btn-outline-secondary btn-lg px-4"
+                        onclick="document.location.href='/#featured-3'">Learn More
+                </button>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br><br><br>
+    <div class="container px-4 py-5" id="featured-3">
+        <h2 class="pb-2 border-bottom">Features and Possibilities</h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="feature col">
+                <h3 class="fs-2 text-body-emphasis">Community-like system</h3>
+                <p>All reviews are posted publicly for others to see. Others can like it if they feel it
+                    is correct, or report it if they feel it breaks the rules. Either way, the people get their
+                    feedback.</p>
+            </div>
+            <div class="feature col">
+                <h3 class="fs-2 text-body-emphasis">Simple information update system</h3>
+                <p>Instead of relying on web scrapers or other methods that may be unreliable,
+                    RateMyTeachers uses the community to keep information updated. This means all information
+                    can be placed accurately.</p>
+            </div>
+            <div class="feature col">
+                <h3 class="fs-2 text-body-emphasis">Tightly knitted to each district</h3>
+                <p>Each city, state, district, or even school, could have their own instance of RateMyTeachers.
+                    This allows the app to be personalized and more widespread to the kids that need it, unlike
+                    RateMyTeacher, which is global, but unheard of in most places.</p>
+            </div>
+        </div>
+    </div>
+    <div class="container px-4 py-5" id="icon-grid">
+        <h2 class="pb-2 border-bottom">Special Talking Points</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Functional</h3>
+                    <p>You may access the page as a student. See README.md for more.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Blazing Fast</h3>
+                    <p>This site's interactions work incredibly fast due to a low backend struggle.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Ran on Django</h3>
+                    <p>This site uses Django for easy user systems and modifiable templates</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Community modifiable</h3>
+                    <p>Can add support for the community to add new teachers/modify existing ones.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

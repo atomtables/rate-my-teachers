@@ -1,0 +1,62 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+    {% if results is not None %}
+        <h1 style="text-align: center">Results</h1>
+        {% for teacher in results %}
+            <div class="card" style="width: 50rem; margin: 0 auto;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ teacher.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ teacher.school }}</h6>
+                    {% for class in teacher.classes %}
+                        <span class="badge text-bg-success" style="">{{ class }}</span>
+                    {% endfor %}
+                    {% for grade in teacher.grades %}
+                        <span class="badge text-bg-primary" style="">{{ grade }}</span>
+                    {% endfor %}
+                </div>
+                <div class="card-footer text-body-secondary">
+                    <button class="btn btn-outline-success"
+                            onclick="document.location.href = '/info/teacher/{{ teacher.id }}'">View
+                    </button>
+                    {% if teacher.overall_rating > 4.0 %}
+                        <button disabled class="btn btn-success"
+                                onclick="document.location.href = '/info/teacher/{{ teacher.id }}'">
+                            {{ teacher.overall_rating }}/5.0
+                        </button>
+                    {% elif teacher.overall_rating > 3.0 %}
+                        <button disabled class="btn btn-primary"
+                                onclick="document.location.href = '/info/teacher/{{ teacher.id }}'">
+                            {{ teacher.overall_rating }}/5.0
+                        </button>
+                    {% elif teacher.overall_rating > 2.0 %}
+                        <button disabled class="btn btn-warning"
+                                onclick="document.location.href = '/info/teacher/{{ teacher.id }}'">
+                            {{ teacher.overall_rating }}/5.0
+                        </button>
+                    {% else %}
+                        <button disabled class="btn btn-danger"
+                                onclick="document.location.href = '/info/teacher/{{ teacher.id }}'">
+                            {{ teacher.overall_rating }}/5.0
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <br>
+        <h1 style="text-align: center">No results were found for "{{ query }}".<br><br>
+        <button class="btn btn-success btn-lg px-4 gap-3" type="submit"
+                onclick="document.location.href='/'" style="text-align: center">Go back home
+        </button></h1>
+
+        <script>
+            document.getElementById('search-form').addEventListener('submit', function (event) {
+                event.preventDefault();  // Prevent the form from submitting
+
+                const query = document.querySelector('input[name="query"]').value;
+                window.location.href = "/search/" + encodeURIComponent(query);
+            });
+        </script>
+    {% endif %}
+{% endblock %}

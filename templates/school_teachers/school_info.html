@@ -1,0 +1,54 @@
+{% extends "base/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <br><br>
+    <div class="container text-left">
+        <div class="row">
+            <div class="col">
+                <h1>{{ school }}</h1>
+                <h3>Founded in {{ year_founded }}</h3>
+                <h3>At {{ address }}</h3>
+                <h4>Current Principal: {{ principal }}</h4>
+                <h4>{{ how_many_teachers }} teachers</h4>
+                <h3>Average teacher rating:</h3>
+                <div style="display: inline-block">
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col">
+                                <img src="/static/favicon.png" width="50px" alt="star">
+                            </div>
+                            <div class="col">
+                                <h1>{{ average_teacher_school_rating }}/5.0</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <h2>Teachers</h2>
+                {% for teacher in teachers %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ teacher.name }}</h5>
+                            {% for class in teacher.classes %}
+                                <span class="badge text-bg-success" style="">{{ class }}</span>
+                            {% endfor %}
+                            {% for grade in teacher.grades %}
+                                <span class="badge text-bg-primary" style="">{{ grade }}</span>
+                            {% endfor %}
+                            <br><br>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ teacher.overall_rating }}/5.0</h6>
+                        </div>
+                        <div class="card-footer text-body-secondary">
+                            <button class="btn btn-outline-success"
+                                    onclick="document.location.href = '/info/teacher/{{ teacher.id }}'">Visit Page
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends "base/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <br><br>
+    <div class="container text-left">
+        <div class="row">
+            <div class="col">
+                <img src="/static/default.png" alt="default profile picture" width="200px">
+                <h1 style="margin: 5px 0 0;">{{ teacher }}</h1>
+                {% for class in classes %}
+                    <span class="badge text-bg-success" style="">{{ class }}</span>
+                {% endfor %}
+                {% for grade in grades %}
+                    <span class="badge text-bg-primary" style="">{{ grade }}</span>
+                {% endfor %}
+                <br>
+                <br>
+                <h3>Teaches {{ teaching }}</h3>
+                <h3>At <a href="/info/school/{{ school_id }}">{{ school }}</a></h3>
+                <h4>{{ school_address }}</h4>
+                <div style="display: inline-block">
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col">
+                                <img src="/static/favicon.png" width="50px" alt="star">
+                            </div>
+                            <div class="col">
+                                <h1>{{ overall_rating }}/5.0</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>
+                    {% if overall_rating > 4.0 %}
+                        <span class="text-success">Excellent,</span>
+                    {% elif overall_rating > 3.0 %}
+                        <span class="text-primary">Good,</span>
+                    {% elif overall_rating > 2.0 %}
+                        <span class="text-warning">Average,</span>
+                    {% else %}
+                        <span class="text-danger">Poor,</span>
+                    {% endif %}
+                    {% if how_many_comments == 0 %}
+                        <span class="text-danger">0 reviews.</span>
+                    {% else %}
+                        {{ how_many_comments }} {% if how_many_comments == 1 %} review {% else %} reviews {% endif %}
+                    {% endif %}
+                </h2>
+                {% if user.is_authenticated %}
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">Write your own review
+                    </button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form method="post">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Submit your review</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            When writing your review, keep the following points in mind:
+                                        <ul>
+                                            <li><b>Do not harass or attempt to hate on any teachers.</b> This review
+                                                is meant for future students to understand their teachers, not to hate
+                                                on teachers.
+                                            </li>
+                                            <li><b>Do not go off-topic.</b> This is not your group chat for you
+                                                and your friends to talk with each other. Please refrain from doing so.
+                                            </li>
+                                            <li><b>Do not use profanity.</b> This is a school website, and we do not
+                                                want to see any profanity.
+                                            </li>
+                                            <li><b>Do not use this as a way to get back at teachers.</b> This is
+                                                meant for future students to understand their teachers, not to get back
+                                                at teachers.
+                                            </li>
+                                            <li><b>Be honest.</b> Don't try to fool other students or be unhelpful.
+                                                The goal is to help one another.
+                                            </li>
+                                        </ul>
+                                        Remember, all reviews are moderated. If you do not follow these rules,
+                                        your review will be deleted and you may be banned from using this
+                                        website.
+                                        <br>
+                                        Talk about some of your teacher's quirks, pros, cons, etc.
+                                        </p>
+                                        {% csrf_token %}
+                                        {{ form|crispy }}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <button type="button" class="btn btn-outline-success"
+                            onclick="document.location.href = '/accounts/login'">
+                        Sign in to write your own review
+                    </button>
+                {% endif %}
+            </div>
+            <div class="col">
+                <h2>Reviews</h2>
+                {% for comment in comments %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ comment.student }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ comment.date }}</h6>
+                            <p class="card-text">{{ comment.review }}</p>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ comment.rating }}/5.0</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                {% if comment.rating > 4.0 %}
+                                    <span class="text-success">Excellent</span>
+                                {% elif comment.rating > 3.0 %}
+                                    <span class="text-primary">Good</span>
+                                {% elif comment.rating > 2.0 %}
+                                    <span class="text-warning">Average</span>
+                                {% else %}
+                                    <span class="text-danger">Poor</span>
+                                {% endif %}
+                            </h6>
+                        </div>
+                        <div class="card-footer text-body-secondary">
+                            <button class="btn btn-outline-success" onclick="alert('Not Implemented')">Like</button>
+                            <button class="btn btn-outline-danger" onclick="alert('Not Implemented')">Report</button>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
